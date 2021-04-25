@@ -11,7 +11,11 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.cafe_bazaar.venue.databinding.FragmentVenuesBinding
+import com.cafe_bazaar.venue.utils.Extensions.Companion.navigateSafe
 import com.cafe_bazaar.venue.utils.LocationUtils
 import com.cafe_bazaar.venue.utils.LocationUtilsListener
 import com.nabinbhandari.android.permissions.PermissionHandler
@@ -27,8 +31,9 @@ class VenuesFragment : Fragment() {
     lateinit var locationUtils: LocationUtils
 
     private val viewModel: VenuesFragmentVM by viewModels()
-    private lateinit var binding: FragmentVenuesBinding
     private var initializeRootView: Boolean = true
+    private lateinit var binding: FragmentVenuesBinding
+    private lateinit var adapter: VenueAdapter
 
 
     override fun onCreateView(
@@ -52,6 +57,7 @@ class VenuesFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         if (initializeRootView) {
             initializeRootView = false
+            configAdapter()
         }
         initObservers()
     }
@@ -110,7 +116,9 @@ class VenuesFragment : Fragment() {
 
     private fun initObservers() {
         viewModel.venues.observe(viewLifecycleOwner, Observer {
-
+            it?.let {
+                adapter.addItems(it.getContentIfNotHandled() ?: arrayListOf())
+            }
         })
 
         viewModel.showMessage.observe(viewLifecycleOwner, Observer {
@@ -120,5 +128,35 @@ class VenuesFragment : Fragment() {
                 }
             }
         })
+    }
+    private fun configAdapter() {
+        adapter = VenueAdapter(onItemClickListener = { item, position ->
+            showVenueDetails(item.venue.id)
+        })
+        binding.venuesRecyclerView.layoutManager = LinearLayoutManager(
+            requireContext(),
+            RecyclerView.VERTICAL,
+            false
+        )
+        binding.venuesRecyclerView.adapter = adapter
+        binding.venuesRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                if (viewModel.showLoading.value == true)
+                    return
+
+                val visibleItemCount: Int = (binding.venuesRecyclerView.layoutManager as LinearLayoutManager).childCount
+                val totalItemCount: Int = (binding.venuesRecyclerView.layoutManager as LinearLayoutManager).itemCount
+                val pastVisibleItems: Int = (binding.venuesRecyclerView.layoutManager as LinearLayoutManager).findFirstVisibleItemPosition()
+                if (pastVisibleItems + visibleItemCount >= totalItemCount) {
+                    viewModel.getVenues()
+                }
+            }
+        })
+    }
+
+    private fun showVenueDetails(venueId: String) {
+        val action = VenuesFragmentDirections.actionVenuesFragmentToDetailsFragment(venueId)
+        findNavController().navigateSafe(action)
     }
 }

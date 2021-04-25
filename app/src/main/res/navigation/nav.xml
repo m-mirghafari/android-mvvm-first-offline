@@ -18,5 +18,9 @@
         android:id="@+id/detailsFragment"
         android:name="com.cafe_bazaar.venue.ui.venueDetails.DetailsFragment"
         android:label="DetailsFragment"
-        tools:layout="@layout/fragment_details"/>
+        tools:layout="@layout/fragment_details">
+        <argument
+            android:name="venueId"
+            app:argType="string" />
+    </fragment>
 </navigation>

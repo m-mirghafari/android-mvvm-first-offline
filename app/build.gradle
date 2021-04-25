@@ -84,4 +84,13 @@ dependencies {
     implementation "com.squareup.retrofit2:converter-gson:2.9.0"
     implementation "com.squareup.okhttp3:okhttp:4.9.0"
     implementation "com.squareup.okhttp3:logging-interceptor:4.9.0"
+
+    // Permissions
+    implementation 'com.nabinbhandari.android:permissions:3.8'
+
+    // get location
+    implementation 'com.google.android.gms:play-services-location:18.0.0'
+
+    // multi dex
+    implementation 'androidx.multidex:multidex:2.0.1'
 }

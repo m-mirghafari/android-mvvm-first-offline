@@ -7,4 +7,5 @@ object Constants {
     const val CLIENT_SECRET = "O1UU4W1MHV252E1YQ5PG4EFMBWEBMXMOZZ2ZTMRY0SHDD4ZL"
     const val API_V_PARAM = "20120609"
     const val VENUES_LIST_LIMIT: Int = 5
+    const val SP_FILE_NAME: String = "TASK_SHARED_PREF"
 }

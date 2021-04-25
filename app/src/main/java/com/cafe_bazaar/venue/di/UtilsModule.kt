@@ -1,5 +1,7 @@
 package com.cafe_bazaar.venue.di
 
+import com.cafe_bazaar.venue.data.sp.SharedPreferenceHelper
+import com.cafe_bazaar.venue.data.sp.SharedPreferenceHelperImpl
 import com.cafe_bazaar.venue.utils.ApiResponseMapper
 import com.cafe_bazaar.venue.utils.ApiResponseMapperImpl
 import com.cafe_bazaar.venue.utils.LocationUtils
@@ -22,4 +24,9 @@ object UtilsModule {
     @Provides
     @Singleton
     fun provideLocationUtils(locationUtils: LocationUtilsImpl): LocationUtils = locationUtils
+
+    @Provides
+    @Singleton
+    fun provideSharedPref(sharedPreferenceHelper: SharedPreferenceHelperImpl): SharedPreferenceHelper = sharedPreferenceHelper
+
 }

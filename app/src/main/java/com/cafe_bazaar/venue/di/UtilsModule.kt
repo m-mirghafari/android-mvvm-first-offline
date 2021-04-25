@@ -1,5 +1,7 @@
 package com.cafe_bazaar.venue.di
 
+import com.cafe_bazaar.venue.data.database.DatabaseHelper
+import com.cafe_bazaar.venue.data.database.DatabaseHelperImpl
 import com.cafe_bazaar.venue.data.sp.SharedPreferenceHelper
 import com.cafe_bazaar.venue.data.sp.SharedPreferenceHelperImpl
 import com.cafe_bazaar.venue.utils.ApiResponseMapper
@@ -20,6 +22,10 @@ object UtilsModule {
     @Provides
     @Singleton
     fun provideResponseMapper(apiResponseMapper: ApiResponseMapperImpl): ApiResponseMapper = apiResponseMapper
+
+    @Provides
+    @Singleton
+    fun provideDatabaseHelper(databaseHelper: DatabaseHelperImpl): DatabaseHelper = databaseHelper
 
     @Provides
     @Singleton

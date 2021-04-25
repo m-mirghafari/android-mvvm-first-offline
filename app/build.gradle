@@ -17,6 +17,7 @@ android {
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
+        multiDexEnabled true
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -93,4 +94,8 @@ dependencies {
 
     // multi dex
     implementation 'androidx.multidex:multidex:2.0.1'
+
+    // room
+    implementation 'androidx.room:room-runtime:2.4.0-alpha01'
+    annotationProcessor 'androidx.room:room-compiler:2.4.0-alpha01'
 }

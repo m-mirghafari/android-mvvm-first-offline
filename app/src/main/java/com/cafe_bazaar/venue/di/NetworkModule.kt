@@ -2,6 +2,8 @@ package com.cafe_bazaar.venue.di
 
 import com.cafe_bazaar.venue.BuildConfig
 import com.cafe_bazaar.venue.app.Constants
+import com.cafe_bazaar.venue.data.network.ApiHelper
+import com.cafe_bazaar.venue.data.network.ApiHelperImpl
 import com.cafe_bazaar.venue.data.network.ApiService
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
@@ -67,4 +69,7 @@ object NetworkModule {
     fun provideApiService(retrofit: Retrofit): ApiService =
         retrofit.create(ApiService::class.java)
 
+    @Provides
+    @Singleton
+    fun provideApiHelper(apiHelper: ApiHelperImpl): ApiHelper = apiHelper
 }

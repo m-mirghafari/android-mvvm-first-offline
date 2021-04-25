@@ -1,7 +1,8 @@
-package com.cafe_bazaar.venue
+package com.cafe_bazaar.venue.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.cafe_bazaar.venue.R
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

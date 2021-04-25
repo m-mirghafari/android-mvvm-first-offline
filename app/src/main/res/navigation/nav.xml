@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav"
+    app:startDestination="@id/venuesFragment">
+
+    <fragment
+        android:id="@+id/venuesFragment"
+        android:name="com.cafe_bazaar.venue.ui.venuesList.VenuesFragment"
+        android:label="VenuesFragment"
+        tools:layout="@layout/fragment_venues">
+        <action
+            android:id="@+id/action_venuesFragment_to_detailsFragment"
+            app:destination="@id/detailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailsFragment"
+        android:name="com.cafe_bazaar.venue.ui.venueDetails.DetailsFragment"
+        android:label="DetailsFragment"
+        tools:layout="@layout/fragment_details"/>
+</navigation>

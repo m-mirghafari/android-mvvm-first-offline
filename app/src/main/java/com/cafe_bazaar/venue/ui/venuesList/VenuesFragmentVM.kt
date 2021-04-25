@@ -12,11 +12,13 @@ import com.cafe_bazaar.venue.data.models.venue.GetVenueListRes
 import com.cafe_bazaar.venue.data.models.venue.Items
 import com.cafe_bazaar.venue.data.repository.VenueRepository
 import com.cafe_bazaar.venue.utils.Event
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@HiltViewModel
 class VenuesFragmentVM @Inject constructor(private val repo: VenueRepository) : ViewModel() {
 
     val showLoading = MutableLiveData(true)

@@ -11,11 +11,8 @@ interface VenuesPerPageDao {
     suspend fun getVenuesListByOffset(offset: Int): VenuesPerPage
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(item: VenuesPerPage): Flow<Boolean>
-
-    @Delete
-    suspend fun delete(item: VenuesPerPageDao): Flow<Boolean>
+    suspend fun insert(item: VenuesPerPage)
 
     @Query("DELETE FROM VenuesPerPage")
-    suspend fun clearAllData(): Flow<Boolean>
+    suspend fun clearAllData()
 }

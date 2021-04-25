@@ -8,4 +8,5 @@ object Constants {
     const val API_V_PARAM = "20120609"
     const val VENUES_LIST_LIMIT: Int = 5
     const val SP_FILE_NAME: String = "TASK_SHARED_PREF"
+    const val DATABASE_NAME = "VENUE_DATABASE"
 }

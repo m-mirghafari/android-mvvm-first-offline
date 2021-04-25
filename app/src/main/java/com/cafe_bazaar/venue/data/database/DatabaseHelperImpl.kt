@@ -27,9 +27,13 @@ class DatabaseHelperImpl @Inject constructor(
         }
     }
 
-    override suspend fun saveVenue(offset: Int, venues: GetVenueListRes): Flow<Boolean> = database.getVenuesPerPageDao().insert(
-        VenuesPerPage(offset, venues.toString())
-    )
+    override suspend fun saveVenue(offset: Int, venues: GetVenueListRes): Flow<Boolean> = flow {
+        database.getVenuesPerPageDao().insert(VenuesPerPage(offset, venues.toString()))
+        emit(true)
+    }
 
-    override suspend fun clearVenueTable(): Flow<Boolean> = database.getVenuesPerPageDao().clearAllData()
+    override suspend fun clearVenueTable(): Flow<Boolean> = flow {
+        database.getVenuesPerPageDao().clearAllData()
+        emit(true)
+    }
 }

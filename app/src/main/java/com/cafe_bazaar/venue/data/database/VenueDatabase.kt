@@ -8,5 +8,4 @@ import androidx.room.RoomDatabase
 abstract class VenueDatabase: RoomDatabase() {
 
     abstract fun getVenuesPerPageDao(): VenuesPerPageDao
-
 }

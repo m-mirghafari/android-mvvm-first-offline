@@ -7,7 +7,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.cafe_bazaar.venue.databinding.FragmentVenuesBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+
+@AndroidEntryPoint
 class VenuesFragment : Fragment() {
 
     private val viewModel: VenuesFragmentVM by viewModels()

@@ -1,6 +1,9 @@
 package com.cafe_bazaar.venue.data.network
 
 import com.cafe_bazaar.venue.app.Constants
+import com.cafe_bazaar.venue.data.models.BaseResponse
+import com.cafe_bazaar.venue.data.models.venue.GetVenueDetailsRes
+import com.cafe_bazaar.venue.data.models.venue.GetVenueListRes
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
@@ -15,7 +18,7 @@ interface ApiService {
         @Query("limit") limit: Int = Constants.VENUES_LIST_LIMIT,
         @Query("offset") offset: Int = 1,
         @Query("ll") latitudeAndLongitude: String
-    ): Any
+    ): BaseResponse<GetVenueListRes>
 
 
     @GET(value = "venues/{venueId}?")
@@ -24,5 +27,5 @@ interface ApiService {
         @Query("client_id") clientId: String = Constants.CLIENT_ID,
         @Query("client_secret") clientSecret: String = Constants.CLIENT_SECRET,
         @Query("v") v: String = Constants.API_V_PARAM
-    ): Any
+    ): BaseResponse<GetVenueDetailsRes>
 }

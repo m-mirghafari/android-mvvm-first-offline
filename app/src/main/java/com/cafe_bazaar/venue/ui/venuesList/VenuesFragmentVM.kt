@@ -37,8 +37,7 @@ class VenuesFragmentVM @Inject constructor(private val repo: VenueRepository) : 
         viewModelScope.launch {
             repo.getPlaces(
                 offset = currentPage * Constants.VENUES_LIST_LIMIT,
-                latitude = currentLocation?.latitude ?: 0.0,
-                longitude = currentLocation?.longitude ?: 0.0
+                location = currentLocation!!
             ).onEach { res ->
                 when (res) {
                     is DataState.Result<ApiResponse<GetVenueListRes>> -> {

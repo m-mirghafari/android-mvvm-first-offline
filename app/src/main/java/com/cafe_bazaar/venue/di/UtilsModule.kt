@@ -2,6 +2,7 @@ package com.cafe_bazaar.venue.di
 
 import android.content.Context
 import androidx.room.Room
+import com.cafe_bazaar.venue.app.App
 import com.cafe_bazaar.venue.app.Constants
 import com.cafe_bazaar.venue.data.database.DatabaseHelper
 import com.cafe_bazaar.venue.data.database.DatabaseHelperImpl
@@ -18,8 +19,13 @@ import javax.inject.Singleton
 
 
 @Module
+
 @InstallIn(SingletonComponent::class)
 object UtilsModule {
+
+    @Provides
+    @Singleton
+    fun provideContext(@ApplicationContext context: Context): Context = context
 
     @Provides
     @Singleton
@@ -45,5 +51,4 @@ object UtilsModule {
     @Provides
     @Singleton
     fun provideLocationUtils(locationUtils: LocationUtilsImpl): LocationUtils = locationUtils
-
 }

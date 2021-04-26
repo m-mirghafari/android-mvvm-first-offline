@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface DatabaseHelper {
 
-    suspend fun getVenueByOffset(offset: Int): Flow<DataState<ApiResponse<GetVenueListRes>>>
-    suspend fun saveVenue(offset: Int, venues: GetVenueListRes): Flow<Boolean>
+    suspend fun getVenueByOffset(offset: Int): Flow<GetVenueListRes?>
+    suspend fun insertVenue(offset: Int, venues: GetVenueListRes): Flow<Boolean>
     suspend fun clearVenueTable(): Flow<Boolean>
 }

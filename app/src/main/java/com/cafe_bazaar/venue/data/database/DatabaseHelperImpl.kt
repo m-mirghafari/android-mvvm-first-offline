@@ -18,7 +18,6 @@ class DatabaseHelperImpl @Inject constructor(
             var result: GetVenueListRes? = null
             if (jsonString.isNotEmpty())
                 result = jsonUtils.toGetVenueListRes(jsonString)
-            Log.i("===>>>", "result on DatabaseHelperImpl : " + result?.toString())
             result
         } catch (e: Exception) {
             e.printStackTrace()
@@ -28,13 +27,11 @@ class DatabaseHelperImpl @Inject constructor(
 
     override suspend fun insertVenue(offset: Int, venues: GetVenueListRes): Boolean {
         database.getVenuesPerPageDao().insert(VenuesPerPage(offset, jsonUtils.toString(venues)))
-        Log.i("===>>>", "insertVenue")
         return true
     }
 
     override suspend fun clearVenueTable(): Boolean {
         database.getVenuesPerPageDao().clearAllData()
-        Log.i("===>>>", "insertVenue")
         return true
     }
 }

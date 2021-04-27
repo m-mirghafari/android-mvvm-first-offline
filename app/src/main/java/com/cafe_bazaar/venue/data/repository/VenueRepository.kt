@@ -49,7 +49,6 @@ class VenueRepository @Inject constructor(
 
             } else {
                 result = databaseHelper.getVenueByOffset(offset)
-                Log.i("===>>>", "result on VenueRepository : " + result?.toString())
                 if (result != null) getDataFromApi = false
             }
 

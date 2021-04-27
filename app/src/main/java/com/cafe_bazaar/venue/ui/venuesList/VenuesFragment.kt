@@ -21,6 +21,11 @@ import com.cafe_bazaar.venue.utils.LocationUtilsListener
 import com.nabinbhandari.android.permissions.PermissionHandler
 import com.nabinbhandari.android.permissions.Permissions
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers.Main
+import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 
@@ -70,7 +75,9 @@ class VenuesFragment : Fragment() {
     private fun initObservers() {
         viewModel.venues.observe(viewLifecycleOwner, Observer {
             it?.let {
-                adapter.addItems(it.getContentIfNotHandled() ?: arrayListOf())
+                CoroutineScope(Main).launch {
+                    adapter.addItems(it.getContentIfNotHandled() ?: arrayListOf())
+                }
             }
         })
 

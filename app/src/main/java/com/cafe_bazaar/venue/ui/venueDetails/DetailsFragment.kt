@@ -67,7 +67,7 @@ class DetailsFragment : Fragment() {
                     "${it.location.country ?: ""} - ${it.location.city ?: ""}"
                 binding.txtAddress.text =
                     "${it.location.address ?: ""} ${it.location.crossStreet ?: ""}"
-                binding.txtDistance.text = "${it.location.distance} KM"
+                binding.txtDistance.text = "${it.location.distance ?: ""} KM"
             }
         })
     }

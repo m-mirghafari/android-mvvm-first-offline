@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.Flow
 interface VenuesPerPageDao {
 
     @Query("SELECT * FROM VenuesPerPage WHERE `offset` = :offset")
-    suspend fun getVenuesListByOffset(offset: Int): VenuesPerPage
+    suspend fun getVenuesListByOffset(offset: Int): VenuesPerPage?
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(item: VenuesPerPage)

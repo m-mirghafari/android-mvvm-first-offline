@@ -8,6 +8,6 @@ import kotlinx.coroutines.flow.Flow
 
 interface ApiHelper {
 
-    suspend fun getVenues(offset: Int, latitudeAndLongitude: String): Flow<DataState<ApiResponse<GetVenueListRes>>>
-    suspend fun getVenueDetails(venueId: String): Flow<DataState<ApiResponse<GetVenueDetailsRes>>>
+    suspend fun getVenues(offset: Int, latitudeAndLongitude: String): ApiResponse<GetVenueListRes>
+    suspend fun getVenueDetails(venueId: String): ApiResponse<GetVenueDetailsRes>
 }

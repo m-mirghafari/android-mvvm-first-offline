@@ -1,12 +1,9 @@
 package com.cafe_bazaar.venue.data.database
 
 import android.util.Log
-import com.cafe_bazaar.venue.data.models.ApiResponse
-import com.cafe_bazaar.venue.data.models.DataState
 import com.cafe_bazaar.venue.data.models.venue.GetVenueListRes
 import com.cafe_bazaar.venue.utils.JsonUtils
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
+import java.lang.Exception
 import javax.inject.Inject
 
 
@@ -15,23 +12,28 @@ class DatabaseHelperImpl @Inject constructor(
     private val jsonUtils: JsonUtils
 ): DatabaseHelper {
 
-    override suspend fun getVenueByOffset(offset: Int): Flow<GetVenueListRes?> = flow {
-        val venuesPerPage = database.getVenuesPerPageDao().getVenuesListByOffset(offset)
-        // try to map string json to array of Venues
-        val result: GetVenueListRes? = jsonUtils.toObject(venuesPerPage.jsonString)
-        Log.i("===>>>", "getVenueByOffset")
-        emit(result)
+    override suspend fun getVenueByOffset(offset: Int): GetVenueListRes? {
+        return try {
+            val jsonString: String = database.getVenuesPerPageDao().getVenuesListByOffset(offset)?.jsonString ?: ""
+            var result: GetVenueListRes? = null
+            if (jsonString.isNotEmpty()) result = jsonUtils.toObject<GetVenueListRes>(jsonString)
+            Log.i("===>>>", "getVenueByOffset")
+            result
+        } catch (e: Exception) {
+            e.printStackTrace()
+            null
+        }
     }
 
-    override suspend fun insertVenue(offset: Int, venues: GetVenueListRes): Flow<Boolean> = flow {
-        database.getVenuesPerPageDao().insert(VenuesPerPage(offset, venues.toString()))
+    override suspend fun insertVenue(offset: Int, venues: GetVenueListRes): Boolean {
+        database.getVenuesPerPageDao().insert(VenuesPerPage(offset, jsonUtils.toString(venues)))
         Log.i("===>>>", "insertVenue")
-        emit(true)
+        return true
     }
 
-    override suspend fun clearVenueTable(): Flow<Boolean> = flow {
+    override suspend fun clearVenueTable(): Boolean {
         database.getVenuesPerPageDao().clearAllData()
         Log.i("===>>>", "insertVenue")
-        emit(true)
+        return true
     }
 }

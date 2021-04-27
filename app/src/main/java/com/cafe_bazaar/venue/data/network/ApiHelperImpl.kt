@@ -10,27 +10,29 @@ import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
 
-class ApiHelperImpl @Inject constructor(private val apiService: ApiService,
-                                        private val apiResponseMapper: ApiResponseMapper
+class ApiHelperImpl @Inject constructor(
+    private val apiService: ApiService,
+    private val apiResponseMapper: ApiResponseMapper
 ) : ApiHelper {
 
-    override suspend fun getVenues(offset: Int, latitudeAndLongitude: String): Flow<DataState<ApiResponse<GetVenueListRes>>> =
-        flow {
-            try {
-                emit(DataState.Loading)
-                emit(apiResponseMapper.map(apiService.getVenues(offset = offset, latitudeAndLongitude = latitudeAndLongitude)))
-            } catch (e: Exception) {
-                emit(apiResponseMapper.getConnectionErrorMapResponse<GetVenueListRes>(e))
-            }
+    override suspend fun getVenues(offset: Int, latitudeAndLongitude: String): ApiResponse<GetVenueListRes> =
+        try {
+            apiResponseMapper.map(
+                apiService.getVenues(
+                    offset = offset,
+                    latitudeAndLongitude = latitudeAndLongitude
+                )
+            )
+        } catch (e: Exception) {
+            apiResponseMapper.getConnectionErrorMapResponse<GetVenueListRes>(e)
         }
 
-    override suspend fun getVenueDetails(venueId: String): Flow<DataState<ApiResponse<GetVenueDetailsRes>>> =
-        flow {
-            try {
-                emit(DataState.Loading)
-                emit(apiResponseMapper.map(apiService.getVenueDetails(venueId)))
-            } catch (e: Exception) {
-                emit(apiResponseMapper.getConnectionErrorMapResponse<GetVenueDetailsRes>(e))
-            }
+
+    override suspend fun getVenueDetails(venueId: String): ApiResponse<GetVenueDetailsRes> =
+        try {
+            apiResponseMapper.map(apiService.getVenueDetails(venueId))
+        } catch (e: Exception) {
+            apiResponseMapper.getConnectionErrorMapResponse<GetVenueDetailsRes>(e)
         }
+
 }

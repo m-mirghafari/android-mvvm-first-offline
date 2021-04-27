@@ -48,7 +48,7 @@ class VenuesFragmentVM @Inject constructor(private val repo: VenueRepository) : 
                             }
 
                             if (!newItems.isNullOrEmpty()) {
-                                _venues.value = Event(newItems)
+                                _venues.value = Event(ArrayList(newItems))
                             }
 
                         } else {

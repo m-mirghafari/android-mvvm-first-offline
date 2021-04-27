@@ -31,8 +31,8 @@ object NetworkModule {
     @Provides
     fun provideGsonBuilder(): Gson {
         return GsonBuilder()
-            .serializeNulls()
-            .setLenient()
+//            .serializeNulls()
+//            .setLenient()
             .create()
     }
 
@@ -55,7 +55,6 @@ object NetworkModule {
             .retryOnConnectionFailure(true)
             .addInterceptor(httpLoggingInterceptor)
             .build()
-
 
     @Provides
     @Singleton

@@ -1,6 +1,7 @@
 package com.cafe_bazaar.venue.data.repository
 
 import android.location.Location
+import android.util.Log
 import com.cafe_bazaar.venue.app.Constants
 import com.cafe_bazaar.venue.data.database.DatabaseHelper
 import com.cafe_bazaar.venue.data.models.ApiResponse
@@ -48,6 +49,7 @@ class VenueRepository @Inject constructor(
 
             } else {
                 result = databaseHelper.getVenueByOffset(offset)
+                Log.i("===>>>", "result on VenueRepository : " + result?.toString())
                 if (result != null) getDataFromApi = false
             }
 
@@ -59,7 +61,7 @@ class VenueRepository @Inject constructor(
                 getDataFromApi = true
             }
 
-            if (offset == 0) databaseHelper.clearVenueTable()
+            if (offset == 0 && getDataFromApi) databaseHelper.clearVenueTable()
             if (getDataFromApi && result != null) {
                 databaseHelper.insertVenue(
                     offset = offset,

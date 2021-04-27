@@ -16,11 +16,9 @@ class DatabaseHelperImpl @Inject constructor(
         return try {
             val jsonString: String = database.getVenuesPerPageDao().getVenuesListByOffset(offset)?.jsonString ?: ""
             var result: GetVenueListRes? = null
-            if (jsonString.isNotEmpty()){
-                Log.i("===>>>", "casted data from db: " + jsonUtils.toGetVenueListRes(jsonString)?.toString())
+            if (jsonString.isNotEmpty())
                 result = jsonUtils.toGetVenueListRes(jsonString)
-            }
-            Log.i("===>>>", "getVenueByOffset")
+            Log.i("===>>>", "result on DatabaseHelperImpl : " + result?.toString())
             result
         } catch (e: Exception) {
             e.printStackTrace()

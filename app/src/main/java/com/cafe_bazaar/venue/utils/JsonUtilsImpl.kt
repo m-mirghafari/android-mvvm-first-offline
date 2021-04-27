@@ -22,10 +22,10 @@ class JsonUtilsImpl @Inject constructor(private var gson: Gson): JsonUtils {
         try {
             Log.e("===>>>>", jsonString)
             val typeToken = object : TypeToken<GetVenueListRes>() {}.type
-//        val gson = Gson()
-//        val reader = JsonReader(StringReader(jsonString))
-//        reader.isLenient = true
-            return gson.fromJson(jsonString, typeToken)
+            val result: GetVenueListRes? = gson.fromJson(jsonString, typeToken)
+            Log.e("===>>>>", "casted result on json utils" + result?.toString())
+
+            return result
         } catch (e: Exception) {
             e.printStackTrace()
             Log.e("===>>>>", "Failed to toGetVenueListRes")

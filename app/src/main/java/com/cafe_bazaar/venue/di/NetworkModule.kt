@@ -31,8 +31,7 @@ object NetworkModule {
     @Provides
     fun provideGsonBuilder(): Gson {
         return GsonBuilder()
-//            .serializeNulls()
-//            .setLenient()
+            .serializeNulls()
             .create()
     }
 
@@ -41,7 +40,6 @@ object NetworkModule {
     fun getHttpLoggingInterceptor(): HttpLoggingInterceptor {
         val interceptor = HttpLoggingInterceptor()
         interceptor.level = if (BuildConfig.DEBUG) HttpLoggingInterceptor.Level.BODY else HttpLoggingInterceptor.Level.NONE
-//        interceptor.level = HttpLoggingInterceptor.Level.BODY
         return interceptor
     }
 

@@ -1,5 +1,7 @@
 package com.cafe_bazaar.venue.ui.venueDetails
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,6 +10,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.cafe_bazaar.venue.databinding.FragmentDetailsBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -28,17 +31,30 @@ class DetailsFragment : Fragment() {
         binding.viewModel= viewModel
         binding.lifecycleOwner = this
 
+        initView()
         initObservers()
         viewModel.getVenueDetails(venueId = args.venueId)
 
         return binding.root
     }
 
+    private fun initView() {
+        binding.imgBack.setOnClickListener {
+            findNavController().navigateUp()
+        }
+
+        binding.buttonNavigate.setOnClickListener {
+            val uri = "geo: ${viewModel.venue.value?.location?.lat},${viewModel.venue.value?.location?.lng} ?q= ${viewModel.venue.value?.location?.lat},${viewModel.venue.value?.location?.lng}"
+            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(uri)))
+        }
+    }
+
     private fun initObservers() {
         viewModel.showMessage.observe(viewLifecycleOwner, Observer {
             it?.let {
                 if (it.hasBeenHandled) {
-                    Toast.makeText(requireContext(), it.getContentIfNotHandled(), Toast.LENGTH_LONG).show()
+                    Toast.makeText(requireContext(), it.getContentIfNotHandled(), Toast.LENGTH_LONG)
+                        .show()
                 }
             }
         })
@@ -47,11 +63,11 @@ class DetailsFragment : Fragment() {
             it?.let {
                 binding.txtTitle.text = it.name
                 binding.txtCategory.text = it.categories.first().name
-                binding.txtCountry.text = it.location.country
-                binding.txtCity.text = it.location.city
-                binding.txtAddress.text = it.location.address
-                binding.txtLocation.text = it.location.crossStreet
-                binding.txtDistance.text = it.location.distance.toString()
+                binding.txtCountryCity.text =
+                    "${it.location.country ?: ""} - ${it.location.city ?: ""}"
+                binding.txtAddress.text =
+                    "${it.location.address ?: ""} ${it.location.crossStreet ?: ""}"
+                binding.txtDistance.text = "${it.location.distance} KM"
             }
         })
     }

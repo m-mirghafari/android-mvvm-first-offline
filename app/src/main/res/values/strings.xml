@@ -1,3 +1,6 @@
 <resources>
-    <string name="app_name">CafeBazaar-venue</string>
+    <string name="app_name">CB-venue</string>
+    <string name="venues">Venues</string>
+    <string name="nearestVenues">Nearest venues</string>
+    <string name="navigate">navigate</string>
 </resources>

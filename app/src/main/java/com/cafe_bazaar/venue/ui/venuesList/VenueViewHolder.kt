@@ -15,7 +15,6 @@ class VenueViewHolder (
     fun bind(currentItem: Items, position: Int) {
         binding.txtTitle.text = currentItem.venue.name
         binding.txtCategory.text = currentItem.venue.categories.first().name
-        binding.txtLocation.text = "${currentItem.venue.location.country} - ${currentItem.venue.location.city}"
         binding.txtAddress.text = currentItem.venue.location.address
 
         binding.itemRoot.setOnClickListener {

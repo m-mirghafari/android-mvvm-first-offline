@@ -161,12 +161,16 @@ class VenuesFragment : Fragment() {
 
     private fun onUserLocationUpdated(location: Location) {
         val lastLocation = viewModel.currentLocation
-        Toast.makeText(requireContext(), "new location detected", Toast.LENGTH_SHORT).show()
-        Toast.makeText(requireContext(), "distance is ${lastLocation?.distanceTo(location)}", Toast.LENGTH_LONG).show()
         if (lastLocation != null && lastLocation.distanceTo(location) < 100.0f)
             return
+
+        adapter.clearAllItems()
         viewModel.currentLocation = location
         viewModel.getVenues()
     }
 
+    override fun onDestroy() {
+        locationUtils.stopUpdateLocation()
+        super.onDestroy()
+    }
 }

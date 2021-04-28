@@ -65,7 +65,10 @@ class VenueRepository @Inject constructor(
                 getDataFromApi = true
             }
 
+
+            if (getDataFromApi) sp.setLong(Constants.PREF_KEY_LAST_API_CALL, Calendar.getInstance().timeInMillis)
             if (offset == 0 && getDataFromApi) databaseHelper.clearVenueTable()
+
             if (getDataFromApi && result != null) {
                 databaseHelper.insertVenue(
                     offset = offset,

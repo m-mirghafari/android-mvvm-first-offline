@@ -23,6 +23,10 @@ class SharedPreferenceHelperImpl @Inject constructor(context: Context) : SharedP
         sharesPreferences.edit().putInt(key, value).apply()
     }
 
+    override fun setLong(key: String, value: Long) {
+        sharesPreferences.edit().putLong(key, value).apply()
+    }
+
     override fun setDouble(key: String, value: Double) {
         sharesPreferences.edit().putString(key, value.toString()).apply()
     }
@@ -35,6 +39,9 @@ class SharedPreferenceHelperImpl @Inject constructor(context: Context) : SharedP
 
     override fun getInt(key: String): Int =
         sharesPreferences.getInt(key, 0)
+
+    override fun getLong(key: String): Long =
+        sharesPreferences.getLong(key, 0)
 
     override fun getDouble(key: String): Double = try {
         (sharesPreferences.getString(key, "0") ?: "0").toDouble()

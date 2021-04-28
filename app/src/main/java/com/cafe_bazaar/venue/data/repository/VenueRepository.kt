@@ -10,6 +10,7 @@ import com.cafe_bazaar.venue.data.models.venue.GetVenueDetailsRes
 import com.cafe_bazaar.venue.data.models.venue.GetVenueListRes
 import com.cafe_bazaar.venue.data.network.ApiHelper
 import com.cafe_bazaar.venue.data.sp.SharedPreferenceHelper
+import com.cafe_bazaar.venue.utils.Utils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.Flow
@@ -17,12 +18,14 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.withContext
 import java.lang.Exception
+import java.util.*
 import javax.inject.Inject
 
 class VenueRepository @Inject constructor(
     private val apiHelper: ApiHelper,
     private val databaseHelper: DatabaseHelper,
-    private val sp: SharedPreferenceHelper
+    private val sp: SharedPreferenceHelper,
+    private val utils: Utils
 ) {
 
     suspend fun getPlaces(
@@ -36,11 +39,13 @@ class VenueRepository @Inject constructor(
             lastLocation.latitude = sp.getDouble(Constants.PREF_KEY_LAST_LOCATION_LATITUDE)
             lastLocation.longitude = sp.getDouble(Constants.PREF_KEY_LAST_LOCATION_LONGITUDE)
 
+            val lastApiCallDateTime: Long = sp.getLong(Constants.PREF_KEY_LAST_API_CALL)
+
             var result: GetVenueListRes?
-            var getDataFromApi: Boolean = false
+            var getDataFromApi = false
 
 
-            if (location.distanceTo(lastLocation) > 100) {
+            if (location.distanceTo(lastLocation) > 100 || utils.getPastDaysFromToday(lastApiCallDateTime) > 5) {
                 result = apiHelper.getVenues(
                     offset = offset,
                     latitudeAndLongitude = "${location.latitude},${location.longitude}"

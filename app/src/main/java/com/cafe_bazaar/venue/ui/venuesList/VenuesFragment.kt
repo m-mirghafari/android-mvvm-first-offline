@@ -91,7 +91,7 @@ class VenuesFragment : Fragment() {
     }
 
     private fun configAdapter() {
-        adapter = VenueAdapter(onItemClickListener = { item, position ->
+        adapter = VenueAdapter(onItemClickListener = { item, _ ->
             showVenueDetails(item.venue.id)
         })
         binding.venuesRecyclerView.layoutManager = LinearLayoutManager(
@@ -116,14 +116,13 @@ class VenuesFragment : Fragment() {
         })
     }
 
-
     private fun showVenueDetails(venueId: String) {
         val action = VenuesFragmentDirections.actionVenuesFragmentToDetailsFragment(venueId)
         findNavController().navigateSafe(action)
     }
 
     private fun checkLocationPermission() {
-        Permissions.check(activity,
+        Permissions.check(requireActivity(),
             arrayOf(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION),
             null,
             null,
@@ -133,7 +132,7 @@ class VenuesFragment : Fragment() {
                 }
 
                 override fun onDenied(context: Context?, deniedPermissions: ArrayList<String>?) {
-                    Toast.makeText(requireContext(), "we need location permission to get venues around your location!", Toast.LENGTH_LONG)
+                    Toast.makeText(requireContext(), "We need location permission to get venues around your location!", Toast.LENGTH_LONG)
                         .show()
                 }
             }

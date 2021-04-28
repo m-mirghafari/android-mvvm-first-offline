@@ -9,12 +9,6 @@ class VenueAdapter (private val onItemClickListener: (Items, Int) -> Unit) :
 
     private val items: ArrayList<Items> = arrayListOf()
 
-    fun setItems(newItems: ArrayList<Items>) {
-        items.clear()
-        items.addAll(newItems)
-        notifyItemRangeChanged(0, newItems.count())
-    }
-
     fun addItems(newItems: ArrayList<Items>) {
         val lastItemsCount = items.count()
         items.addAll(newItems)

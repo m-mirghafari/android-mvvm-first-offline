@@ -2,7 +2,6 @@ package com.cafe_bazaar.venue.di
 
 import android.content.Context
 import androidx.room.Room
-import com.cafe_bazaar.venue.app.App
 import com.cafe_bazaar.venue.app.Constants
 import com.cafe_bazaar.venue.data.database.DatabaseHelper
 import com.cafe_bazaar.venue.data.database.DatabaseHelperImpl
@@ -46,7 +45,7 @@ object UtilsModule {
 
     @Provides
     @Singleton
-    fun provideJsonUtils(jsonUtils: JsonUtilsImpl): JsonUtils = jsonUtils
+    fun provideJsonUtils(jsonUtils: UtilsImpl): Utils = jsonUtils
 
     @Provides
     @Singleton

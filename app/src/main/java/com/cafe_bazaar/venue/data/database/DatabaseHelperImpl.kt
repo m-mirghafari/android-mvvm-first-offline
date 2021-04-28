@@ -1,15 +1,14 @@
 package com.cafe_bazaar.venue.data.database
 
-import android.util.Log
 import com.cafe_bazaar.venue.data.models.venue.GetVenueListRes
-import com.cafe_bazaar.venue.utils.JsonUtils
+import com.cafe_bazaar.venue.utils.Utils
 import java.lang.Exception
 import javax.inject.Inject
 
 
 class DatabaseHelperImpl @Inject constructor(
     private val database: VenueDatabase,
-    private val jsonUtils: JsonUtils
+    private val jsonUtils: Utils
 ): DatabaseHelper {
 
     override suspend fun getVenueByOffset(offset: Int): GetVenueListRes? {
